@@ -1,12 +1,28 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -pedantic -std=c23 -g
+CC := gcc
+# CFLAGS := -std=c99 -Wall -Wextra -Werror -pedantic
+CFLAGS := -std=c99 -Wall -Wextra -pedantic
 
-main: main.c
-	${CC} ${CFLAGS} $@.c -o $@
+BUILD_DIR := ./build
+DEBUG_BUILD_DIR := $(BUILD_DIR)/debug
+
+SRCS := $(shell find src -name '*.c')
+EXE_NAME := main
+
+EXE_PATH := $(BUILD_DIR)/$(EXE_NAME)
+DEBUG_EXE_PATH := $(DEBUG_BUILD_DIR)/$(EXE_NAME)
+
+main: $(SRCS)
+	[ ! -d $(BUILD_DIR) ] && mkdir -p $(BUILD_DIR) || :
+	${CC} ${CFLAGS} $(SRCS) -o $(EXE_PATH)
 
 run: main
-	./main
+	$(EXE_PATH)
 
-clean: main
-	rm main
+debug: $(SRCS)
+	[ ! -d $(DEBUG_BUILD_DIR) ] && mkdir -p $(DEBUG_BUILD_DIR) || :
+	${CC} ${CFLAGS} -g -fsanitize=address $(SRCS) -o $(DEBUG_EXE_PATH)
+	gdb $(DEBUG_EXE_PATH)
+
+clean:
+	rm -r $(BUILD_DIR) $(DEBUG_BUILD_DIR)
 
