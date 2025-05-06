@@ -1,2 +1,4 @@
-CompileFlags:
-  Add: [-xc]
+set debuginfod enabled on
+layout src
+start
+
