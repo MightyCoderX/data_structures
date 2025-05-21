@@ -20,7 +20,7 @@ run: main
 
 debug: $(SRCS)
 	[ ! -d $(DEBUG_BUILD_DIR) ] && mkdir -p $(DEBUG_BUILD_DIR) || :
-	${CC} ${CFLAGS} -g -fsanitize=address $(SRCS) -o $(DEBUG_EXE_PATH)
+	${CC} ${CFLAGS} -DDEBUG -O0 -g -fsanitize=address $(SRCS) -o $(DEBUG_EXE_PATH)
 	gdb $(DEBUG_EXE_PATH)
 
 clean:
