@@ -26,6 +26,11 @@ void validate_ll_int(LinkedList* p_list, int expected_head, int expected_tail) {
 
 #endif /* ifdef DEBUG */
 
+typedef struct {
+    int x;
+    int y;
+} Point;
+
 int main(int argc, char** argv) {
     /* 
      * Init 
@@ -98,5 +103,19 @@ int main(int argc, char** argv) {
     puts("\n/* Free */");
     linkedlist_free_int(&list);
     print_ll_int(&list);
+
+    /*
+     * Generic LinkedList
+     */
+    puts("\n/*\n * Generic LinkedList\n */");
+
+    list = linkedlist_init();
+    linkedlist_append_generic(&list, (void*)&((Point) { 2, -2 }));
+    linkedlist_append_generic(&list, (void*)&((Point) { 3, 5 }));
+
+    printf("%lu\n", list.size);
+    Point* p = linkedlist_get_generic(&list, 1);
+    printf("(%d, %d)\n", p->x, p->y);
+
     return 0;
 }

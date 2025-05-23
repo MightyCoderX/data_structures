@@ -53,5 +53,8 @@ double linkedlist_get_double(LinkedList* p_list, size_t index);
 void* linkedlist_get_generic(LinkedList* p_list, size_t index);
 
 void linkedlist_free_int(LinkedList* p_list);
+void linkedlist_free_float(LinkedList* p_list);
+void linkedlist_free_double(LinkedList* p_list);
+void linkedlist_free_generic(LinkedList* p_list);
 
 #endif // !LINKED_LIST

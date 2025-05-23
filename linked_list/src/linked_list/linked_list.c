@@ -38,6 +38,15 @@
     new->next = curr;                                                                              \
     p_list->size++;
 
+#define linkedlist_get(LLNodeType, value)                                                          \
+    LLNodeType* curr = p_list->head;                                                               \
+    size_t i = 0;                                                                                  \
+    while(curr != NULL && i < index) {                                                             \
+        curr = curr->next;                                                                         \
+        i++;                                                                                       \
+    }                                                                                              \
+    return curr->value;
+
 LinkedList linkedlist_init() {
     LinkedList list = { NULL, NULL, 0 };
     return list;
@@ -102,18 +111,18 @@ void linkedlist_remove_double(LinkedList* p_list, double value);
 void linkedlist_remove_generic(LinkedList* p_list, bool (*matches)(LLNodeGeneric* p_node));
 
 int linkedlist_get_int(LinkedList* p_list, size_t index) {
-    LLNodeInt* curr = p_list->head;
-    size_t i = 0;
-    while(curr != NULL && i < index) {
-        curr = curr->next;
-        i++;
-    }
-
-    return curr->value;
+    linkedlist_get(LLNodeInt, value);
 }
-float linkedlist_get_float(LinkedList* p_list, size_t index);
-double linkedlist_get_double(LinkedList* p_list, size_t index);
-void* linkedlist_get_generic(LinkedList* p_list, size_t index);
+float linkedlist_get_float(LinkedList* p_list, size_t index) {
+    linkedlist_get(LLNodeFloat, value);
+}
+double linkedlist_get_double(LinkedList* p_list, size_t index) {
+    linkedlist_get(LLNodeDouble, value);
+}
+
+void* linkedlist_get_generic(LinkedList* p_list, size_t index) {
+    linkedlist_get(LLNodeGeneric, p_data);
+}
 
 void linkedlist_free_int(LinkedList* p_list) {
     while(p_list->head != NULL) {
