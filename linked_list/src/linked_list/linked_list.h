@@ -57,4 +57,7 @@ void linkedlist_free_float(LinkedList* p_list);
 void linkedlist_free_double(LinkedList* p_list);
 void linkedlist_free_generic(LinkedList* p_list);
 
+typedef void (*ToString)(LLNodeGeneric* p_node, char** serialized);
+void linkedlist_print(LinkedList* p_list, ToString to_string);
+
 #endif // !LINKED_LIST

@@ -133,3 +133,15 @@ void linkedlist_free_int(LinkedList* p_list) {
     p_list->tail = NULL;
     p_list->size = 0;
 }
+
+void linkedlist_print(LinkedList* p_list, ToString to_string) {
+    LLNodeGeneric* curr = p_list->head;
+    while(curr != NULL) {
+        char* string;
+        to_string(curr, &string);
+        printf("%s->", string);
+        free(string);
+        curr = curr->next;
+    }
+    printf("NULL\n");
+}

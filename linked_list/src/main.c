@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "linked_list/linked_list.h"
 
@@ -30,6 +31,14 @@ typedef struct {
     int x;
     int y;
 } Point;
+
+void point_to_string(LLNodeGeneric* p_node, char** serialized) {
+    Point* p = p_node->p_data;
+    char* format = "(%d,%d)";
+    size_t len = snprintf(NULL, 0, format, p->x, p->y);
+    *serialized = malloc(len + 1);
+    snprintf(*serialized, len + 1, format, p->x, p->y);
+}
 
 int main(int argc, char** argv) {
     /* 
@@ -116,6 +125,7 @@ int main(int argc, char** argv) {
     printf("%lu\n", list.size);
     Point* p = linkedlist_get_generic(&list, 1);
     printf("(%d, %d)\n", p->x, p->y);
+    linkedlist_print(&list, &point_to_string);
 
     return 0;
 }
