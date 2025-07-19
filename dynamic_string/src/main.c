@@ -14,7 +14,7 @@
     string_print_debug(&s);                                                                        \
     puts("");
 
-void test_constructors();
+void test_constructors(void);
 void test_append(String str);
 void test_concat(String str);
 void test_set(String str);
@@ -78,7 +78,7 @@ int main(void) {
     return 0;
 }
 
-void test_constructors() {
+void test_constructors(void) {
     printf("=========Initialization=========\n");
     String s = string_new_with_cap(10);
     printf("string_new_with_cap(10)\n\t");
